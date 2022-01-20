@@ -12,8 +12,14 @@ const query = `
 `;
 
 function App() {
-	let {data} = useContentful(query);
+	let {data, errors} = useContentful(query);
 
+	if (errors)
+		return (
+			<span style={{color: "red"}}>
+				{errors.map(error => error.message).join(",")}
+			</span>
+		);
 	if (!data) return <span>Loading...</span>;
 
 	return (
