@@ -1,14 +1,42 @@
 import React from "react";
-import logo from "./logo.svg";
+import Person from "./components/person";
+import Bookmarks from "./components/bookmarks";
 import useContentful from "./hooks/use-contentful.js";
 import "./App.css";
 
 const query = `
-  query {
-    person(id: "7wpWeHFj7WaAncNhWUTg0K") {
-      name
+query {
+  person(id: "7wpWeHFj7WaAncNhWUTg0K") {
+    name
+    title
+    bio {
+      json
+    }
+    socialTwitter
+    socialGithub
+    socialLinkedin
+    image {
+      title
+      url
     }
   }
+
+  bookmarkCollection {
+    items {
+      sys {
+        id
+      }
+      title
+      url
+      comment
+      tagsCollection {
+        items {
+          title
+        }
+      }
+    }
+  }
+}
 `;
 
 function App() {
@@ -22,12 +50,12 @@ function App() {
 		);
 	if (!data) return <span>Loading...</span>;
 
+	const {bookmarkCollection, person} = data;
+
 	return (
 		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				{data.person.name}
-			</header>
+			<Person person={person} />
+			<Bookmarks bookmarks={bookmarkCollection.items} headline="My bookmarks" />
 		</div>
 	);
 }
