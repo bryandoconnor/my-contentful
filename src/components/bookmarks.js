@@ -36,13 +36,13 @@ function Bookmark({bookmark}) {
 
 function Bookmarks({bookmarks}) {
 	return (
-		<section className="bg-white container mx-auto p-6">
+		<section className="bg-gray-200 container-fluid mx-auto py-6">
 			<h2 className="text-gray-800 font-medium capitalize text-xl md:text-2xl">
-				My bookmarks
+				My Bookmarks
 			</h2>
 
 			<div className="flex items-center justify-center">
-				<div className="grid gap-8 grid-cols-1 mt-8">
+				<div className="grid gap-8 md:grid-cols-3 mt-8">
 					{bookmarks.map(bookmark => (
 						<Bookmark bookmark={bookmark} key={bookmark.sys.id} />
 					))}
